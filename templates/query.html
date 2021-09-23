@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% from 'f.j2' import nav, formcol, textfield, submitbutton, showdata %}
+
+{% block header %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector("#query").focus();
+    })
+</script>
+{% endblock %}
+
+{% block title %}SQLite Data App{% endblock %}
+{% block heading %}SQLite Data App{% endblock %}
+
+{% block content %}
+{{ nav() }}
+
+<form action="{{ url_for('query') }}" method="POST">
+    <div class="row">
+        {{ formcol(8, textfield('query', 'QUERY')) }}
+        {{ formcol(4, submitbutton('Run Query', class="btn btn-primary mt-4")) }}
+    </div>
+</form>
+<div class="row justify-content-left">
+    <div class="col-12">
+        <span>Columns: id, author, quote, category, rating</span><br>
+        <span>Table = quotes</span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        {% if query %}
+        <span><strong>Query:&nbsp;</strong>{{ query }}</span>
+        {% endif %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        {% if data %}
+        {{ showdata(headers, data) }}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

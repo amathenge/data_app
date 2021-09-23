@@ -1,0 +1,144 @@
+{%- macro textfield(name,label) %}
+<div class="form-group my-2">
+    <label for="{{ name }}">{{ label }}</label>
+    <input type="text" class="form-control {{ kwargs['class'] }}" id="{{ name }}" name="{{ name }}" placeholder="{{ kwargs['placeholder'] }}" {{ kwargs['required'] }}>
+</div>
+{% endmacro -%}
+
+{%- macro submitbutton(title) %}
+<div class="form-group my-2">
+    <button class="form-control {{ kwargs['class'] }}" type="submit">{{ title }}</button>
+</div>
+{% endmacro -%}
+
+{%- macro passwordfield(name,label) %}
+<div class="form-group my-2">
+    <label for="{{ name }}">{{ label }}</label>
+    <input type="password" class="form-control {{ kwargs['class'] }}" id="{{ name }}" name="{{ name }}" placeholder="{{ kwargs['placeholder'] }}" {{ kwargs['required'] }}>
+</div>
+{% endmacro -%}
+
+{%- macro dropdown(name, label, options) %}
+<div class="form-group my-2">
+    <label for="{{ name }}">{{ label }}</label>
+    <select class="form-select" id="{{ name }}" name="{{ name }}">
+        {% for option in options %}
+        <option value="{{ option.value }}">{{ option.label }}</option>
+        {% endfor %}
+    </select>
+</div>
+{% endmacro -%}
+
+{%- macro formcol(size, data) %}
+<div class="col-{{ size }}">
+    {{ data }}
+</div>
+{% endmacro -%}
+
+{% macro nav() -%}
+<nav class="navbar navbar-expand-sm navbar-light bg-light border border-bottom-secondary">
+<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav001" aria-controls="nav001" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+</button>      
+<div class="collapse navbar-collapse" id="nav001">
+    <div class="navbar-nav">
+    <a class="nav-item nav-link text-primary" href="{{ url_for('home') }}">Home</a>
+    <a class="nav-item nav-link text-primary" href="{{ url_for('query') }}">Query</a>
+    <a class="nav-item nav-link text-primary" href="{{ url_for('authors') }}">Authors</a>
+    <a class="nav-item nav-link text-primary" href="{{ url_for('categories') }}">Categories</a>
+    <a class="nav-item nav-link text-primary" href="{{ url_for('packaged') }}">Packaged Query</a>
+    </div>
+</div>
+<div class="navbar-nav navbar-right">
+    <a class="nav-item nav-link text-primary" href="{{ url_for('logout') }}">Logout</a>
+</div>
+</nav>
+{%- endmacro %}
+
+{% macro showdata(headers, data) -%}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            {% for item in headers %}
+            <th scope="col">{{ item|upper }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in data %}
+        <tr>
+            {% for item in row %}
+            <td>{{ item|nl2br|safe }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{%- endmacro %}
+
+{% macro login(url, recaptcha) -%}
+<h1 class="text-center">Login Form</h1>
+<form action="{{ url }}" method="POST">
+<div class="form-group my-2">
+    <label for="email">Email Login</label>
+    <input class="form-control" type="email" id="email" name="email" placeholder="user@email.com" maxlength="20" required>
+</div>
+<div class="form-group my-2">
+    <label for="password">Password</label>
+    <input class="form-control" type="password" id="password" name="password" maxlength="20" required>
+</div>
+<div class="form-group d-grid my-2 text-center">
+    {{ recaptcha }}
+    <button class="btn btn-primary mt-3" type="submit">LOGIN</button>
+</div>
+</form>
+{%- endmacro %}
+
+{% macro showform(authors, categories) -%}
+<form action="{{ url_for('combo') }}" method="POST">
+    <div class="row">
+        <div class="col-3">
+            <div class="form-group">
+                <select class="form-select" id="author" name="author">
+                    <option value="ANY">ANY</option>
+                    {% for author in authors %}
+                    <option value="{{ author.author }}">{{ author.author }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <select class="form-select" id="category" name="category">
+                    <option value="ANY">ANY</option>
+                    {% for category in categories %}
+                    <option value="{{ category.category }}">{{ category.category }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <select class="form-select" id="rating" name="rating">
+                    <option value="ANY" selected>ANY</option>
+                    <option value="10">10</option>
+                    <option value="9">9</option>
+                    <option value="8">8</option>
+                    <option value="7">7</option>
+                    <option value="6">6</option>
+                    <option value="5">5</option>
+                    <option value="4">4</option>
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Get Quote</button>
+            </div>
+        </div>
+    </div>
+</form>
+{%- endmacro %}

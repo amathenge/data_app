@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% from 'f.j2' import nav, formcol, textfield, submitbutton, showdata, dropdown %}
+
+{% block header %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector("#query").focus();
+    })
+</script>
+{% endblock %}
+
+{% block title %}SQLite Data App{% endblock %}
+{% block heading %}SQLite Data App{% endblock %}
+
+{% block content %}
+{{ nav() }}
+
+<form action="{{ url_for('packaged') }}" method="POST">
+    <div class="row">
+        {{ formcol(8, dropdown('query', 'QUERY', options)) }}
+        {{ formcol(4, submitbutton('Submit', class="btn btn-primary mt-4")) }}
+    </div>
+</form>
+<div class="row">
+    <div class="col-12">
+        {% if data %}
+        {{ showdata(headers, data) }}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

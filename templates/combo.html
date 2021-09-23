@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% from 'f.j2' import nav, formcol, textfield, submitbutton, showdata, dropdown, showform %}
+
+{% block header %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector("#query").focus();
+    })
+</script>
+{% endblock %}
+
+{% block title %}SQLite Data App{% endblock %}
+{% block heading %}SQLite Data App{% endblock %}
+
+{% block content %}
+{{ nav() }}
+<div class="row">
+    <div class="col-12">
+        {{ showform(authors, categories) }}
+    </div>
+</div>
+{% if quotes %}
+<div class="row">
+    <div class="col-12">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">AUTHOR</th>
+                    <th scope="col">CATEGORY</th>
+                    <th scope="col">QUOTE</th>
+                    <th scope="col">RATING</th>
+                    <th scope="col">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for quote in quotes %}
+                <tr>
+                    <td><a href="#">{{ quote.id }}</a></td>
+                    <td>{{ quote.author }}</td>
+                    <td>{{ quote.category }}</td>
+                    <td>{{ quote.quote|replace('\n','<br>')|safe }}</td>
+                    <td>{{ quote.rating }}</td>
+                    <td><a href="#"><i class="far fa-trash-alt"></i></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

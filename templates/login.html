@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% from 'f.j2' import nav, login, formcol %}
+
+{% block header %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelector("#email").focus();
+    })
+</script>
+{% endblock %}
+
+{% block title %}SQLite Data App{% endblock %}
+{% block heading %}SQLite Data App{% endblock %}
+
+{% block content %}
+<div class="row">
+    {{ formcol(4, "&nbsp;") }}
+    {{ formcol(4, login(url, recaptcha)) }}
+    {{ formcol(4, "&nbsp;") }}
+</div>
+{% if msg %}
+<div class="row">
+    {{ formcol(4, "&nbsp;") }}
+    {{ formcol(4, msg) }}
+    {{ formcol(4, "&nbsp;") }}
+</div>
+{% endif %}
+{% endblock %}

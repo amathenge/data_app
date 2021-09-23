@@ -1,0 +1,10 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 200,
+            "driver": "SQLite",
+            "name": "query",
+            "database": "${workspaceFolder:data_app}/quotes.db"
+        }
+    ]
+}

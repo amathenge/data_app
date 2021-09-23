@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% from 'f.j2' import nav, showdata %}
+
+{% block title %}SQLite Data App{% endblock %}
+{% block heading %}CATEGORIES{% endblock %}
+
+{% block content %}
+{{ nav() }}
+<div class="row justify-content-center">
+    <div class="col-12">
+        {{ showdata(headers, data) }}
+    </div>
+</div>
+{% endblock %}

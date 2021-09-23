@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% from 'f.j2' import nav %}
+
+{% block title %}SQLite Data App{% endblock %}
+{% block heading %}SQLite Data App{% endblock %}
+
+{% block content %}
+{{ nav() }}
+<p class="display-5">You are logged out</p>
+{% endblock %}
