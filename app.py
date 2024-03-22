@@ -3,14 +3,25 @@ from database import get_db
 from flask_recaptcha import ReCaptcha
 import os
 import hashlib
+import cred
 
 def hashpass(pwd):
     return hashlib.md5(pwd.encode()).hexdigest()
 
+'''
+Quick note on this version of RecaptCha:
+Go to: <virtualenv>/lib/python-<version>/site-packages
+open flask_recaptcha.py
+change:
+    from jinja2 import Markup
+to:
+    from markupsafe import Markup
+'''
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
-app.config['RECAPTCHA_SITE_KEY'] = 'my-site-key-goes-here'
-app.config['RECAPTCHA_SECRET_KEY'] = 'my-secret-key-goes-here'
+app.config['RECAPTCHA_SITE_KEY'] = cred.recaptcha_site_key
+app.config['RECAPTCHA_SECRET_KEY'] = cred.recaptcha_secret_key
 
 recaptcha = ReCaptcha(app)
 
